@@ -13,7 +13,7 @@ public:
         center = _center;
         radius = _radius;
     }
-    bool Intersect(const Ray &r, HitInfo &hit_info);
+    bool Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info);
 
     vec3 center;
     float radius;

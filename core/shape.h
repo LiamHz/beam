@@ -10,7 +10,7 @@ class Shape {
 public:
     Shape() {}
     virtual ~Shape() {}
-    virtual bool Intersect(const Ray &r, HitInfo &hit_info) = 0;
+    virtual bool Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info) = 0;
 };
 
 #endif

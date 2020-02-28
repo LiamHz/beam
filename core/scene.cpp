@@ -12,7 +12,7 @@
 
 void ParseSphere(std::ifstream &file, std::vector<std::shared_ptr<Shape> > &shapes);
 
-bool Scene::Intersect(const Ray &r, HitInfo &hit_info) {
+bool Scene::Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info) {
     for (int i = 0; i < shapes.size(); i++) {
         if (shapes[i]->Intersect(r, hit_info))
             return true;
@@ -28,7 +28,7 @@ void Scene::ParseShapes() {
             ParseSphere(file, shapes);
         }
 
-        std::cout << word << std::endl;
+        // std::cout << word << std::endl;
     }
 }
 

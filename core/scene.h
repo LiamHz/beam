@@ -13,7 +13,7 @@ public:
     Scene(std::string f) { file_name = f; }
     ~Scene() {}
     void ParseShapes();
-    bool Intersect(const Ray &r, HitInfo &hit_info);
+    bool Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info);
 
     std::string file_name;
 

@@ -6,7 +6,7 @@
 #include <fstream>
 #include <cmath>
 
-#include "geometry.h"
+#include "core/geometry.h"
 using glm::vec3;
 
 #define PI 3.1415926535

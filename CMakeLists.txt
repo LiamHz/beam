@@ -13,4 +13,4 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scenes/default.scene ${CMAKE_CURRENT_
 file(COPY ${SCENE_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/scenes/)
 
 set(CMAKE_CXX_STANDARD 11)
-add_executable(main core/main.cpp core/scene.cpp shapes/sphere.cpp)
+add_executable(main core/main.cpp core/integrator.cpp core/scene.cpp shapes/sphere.cpp)
