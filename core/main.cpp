@@ -16,7 +16,6 @@ using glm::vec3;
 #include "shapes/sphere.h"
 #include "structs/hitinfo.h"
 
-// TODO Add gamma correction to framebuffer
 // Implement object color in scene parser
 // TODO Implement point lights
 // TODO Add BRDF class
@@ -29,7 +28,7 @@ int main() {
     int canvas_height = 400;
 
     std::vector<vec3> framebuffer;
-    Film film(canvas_width, canvas_height);
+    Film film(canvas_width, canvas_height, 2);
     Camera cam(vec3(0, 0, 0), vec3(0, 0, -1), vec3(0, 1, 0), 20, canvas_width / float(canvas_height));
 
     Scene scene("scenes/default.scene");
