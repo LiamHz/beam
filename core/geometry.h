@@ -17,7 +17,7 @@ public:
     vec3 origin() const     { return o; }
     vec3 direction() const  { return d; }
     float time() const      { return t; }
-    vec3 point_at_p(float t) const { return o + t*d; }
+    vec3 point_at_parameter(float t) const { return o + t*d; }
 
     vec3 o, d;
     float t;

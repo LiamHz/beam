@@ -5,36 +5,35 @@
 
 #include "lib/glm/glm.hpp"
 #include "lib/glm/gtc/type_ptr.hpp"
-
-#include "geometry.h"
-#include "camera.h"
-#include "shape.h"
-#include "scene.h"
-
-#include "shapes/sphere.h"
-
 using glm::vec3;
 
-vec3 get_color(const Ray &r, std::vector<std::shared_ptr<Shape> > &scene, float &u, float &v) {
-    for (int i = 0; i < scene.size(); i++) {
-        if(scene[i] -> Intersect(r)) {
-            return vec3(1, 0, 0);
-        }
-    }
-    return vec3(0.1, u, v);
-}
+#include "core/geometry.h"
+#include "core/camera.h"
+#include "core/shape.h"
+#include "core/scene.h"
+
+#include "shapes/sphere.h"
+#include "structs/hitinfo.h"
+
+// TODO Create film class to replace framebuffer
+// TODO Add gamma correction to framebuffer
+// TODO Implement point lights
+// TODO Implement Blinn-Phong Lighting
+// TODO Implement MSAA
+// TODO Fix fisheye distortion for large camera FOV
 
 int main() {
-    int canvas_width = 352;
-    int canvas_height = 240;
+    int canvas_width = 600;
+    int canvas_height = 400;
 
     std::vector<vec3> framebuffer;
-    std::vector<std::shared_ptr<Shape> > scene;
-    Camera cam(vec3(0, 0, 0), vec3(0, 0, -1), vec3(0, 1, 0), 90, canvas_width / float(canvas_height));
-    vec3 color(0, 0, 0);
+    Camera cam(vec3(0, 0, 0), vec3(0, 0, -1), vec3(0, 1, 0), 20, canvas_width / float(canvas_height));
 
-    Scene scene_shapes("scenes/default.scene");
-    scene = scene_shapes.ParseShapes();
+    Scene scene("scenes/default.scene");
+    scene.ParseShapes();
+
+    HitInfo hit_info;
+    bool hit;
 
     // Send a ray through every pixel
     for (int i = 0; i < canvas_height; i++) {
@@ -43,10 +42,13 @@ int main() {
             float u = j / float(canvas_width);
             float v = i / float(canvas_height);
             Ray r = cam.get_ray(u, v);
-            // TODO Rewrite to class based
-            color = get_color(r, scene, u, v);
-            // TODO Implement gama correction before adding to framebuffer
-            framebuffer.push_back(color);
+            hit = scene.Intersect(r, hit_info);
+
+            if (hit)
+                framebuffer.push_back(vec3(1, 0, 0) * vec3(hit_info.normal.z));
+            else
+                framebuffer.push_back(vec3(0, u, v));
+            // framebuffer.push_back(color);
         }
     }
     std::cout << std::endl;

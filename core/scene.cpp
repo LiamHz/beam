@@ -8,12 +8,19 @@
 #include "core/scene.h"
 #include "core/shape.h"
 #include "shapes/sphere.h"
+#include "structs/hitinfo.h"
 
 void ParseSphere(std::ifstream &file, std::vector<std::shared_ptr<Shape> > &shapes);
 
-std::vector<std::shared_ptr<Shape> > Scene::ParseShapes() {
-    std::vector<std::shared_ptr<Shape> > shapes;
+bool Scene::Intersect(const Ray &r, HitInfo &hit_info) {
+    for (int i = 0; i < shapes.size(); i++) {
+        if (shapes[i]->Intersect(r, hit_info))
+            return true;
+    }
+    return false;
+}
 
+void Scene::ParseShapes() {
     std::ifstream file(file_name, std::ifstream::in);
     std::string word;
     while (file >> word) {
@@ -23,8 +30,6 @@ std::vector<std::shared_ptr<Shape> > Scene::ParseShapes() {
 
         std::cout << word << std::endl;
     }
-
-    return shapes;
 }
 
 void ParseSphere(std::ifstream &file, std::vector<std::shared_ptr<Shape> > &shapes) {

@@ -6,14 +6,18 @@
 #include <string>
 
 #include "core/shape.h"
+#include "structs/hitinfo.h"
 
 class Scene {
 public:
     Scene(std::string f) { file_name = f; }
     ~Scene() {}
-    std::vector<std::shared_ptr<Shape> > ParseShapes();
+    void ParseShapes();
+    bool Intersect(const Ray &r, HitInfo &hit_info);
 
     std::string file_name;
+
+    std::vector<std::shared_ptr<Shape> > shapes;
 };
 
 #endif
