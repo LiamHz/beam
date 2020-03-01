@@ -4,8 +4,6 @@
 #include "core/geometry.h"
 #include "structs/hitinfo.h"
 
-using glm::vec3;
-
 class Shape {
 public:
     Shape() {}

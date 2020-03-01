@@ -5,8 +5,6 @@
 #include "core/geometry.h"
 #include "structs/hitinfo.h"
 
-using glm::vec3;
-
 class Sphere : public Shape {
 public:
     Sphere(vec3 _center, float _radius) : Shape() {

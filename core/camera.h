@@ -3,7 +3,6 @@
 
 #include "core/geometry.h"
 #include "core/film.h"
-using glm::vec3;
 
 #define PI 3.1415926535
 

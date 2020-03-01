@@ -19,14 +19,14 @@ using glm::vec3;
 #include "samplers/random.h"
 #include "integrators/whitted.h"
 
-// Implement object color in scene parser
-// TODO Implement point lights
-// TODO Add BRDF class
-// TODO Implement Blinn-Phong BRDF
+// TODO Implement object color in scene parser
+// TODO Add material class
+// TODO Implement metal material
 // TODO Add aggregate class
 // TODO Implement bounding volume hierarchy aggregate
 // TODO Implement texture mapping
 // TODO Implement texture mapping in scene parser
+// TODO Add BRDF class
 // TODO Implement paralell CPU core rendering
 
 int main() {
@@ -37,12 +37,12 @@ int main() {
     Camera c(vec3(0, 0, 0), vec3(0, 0, -1), vec3(0, 1, 0), 20, width, height, gamma);
     std::shared_ptr<Camera> camera = std::make_shared<Camera> (c);
 
-    int nSamples = 10;
+    int nSamples = 2;
     RandomSampler s(nSamples);
     std::shared_ptr<RandomSampler> randomSampler = std::make_shared<RandomSampler> (s);
 
     Scene scene("scenes/default.scene");
-    scene.ParseShapes();
+    scene.ParseFile();
 
     Whitted whitted_integrator(camera, randomSampler, width, height, 3);
 

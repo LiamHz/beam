@@ -2,7 +2,7 @@
 #define HIT_INFO_H
 
 struct HitInfo {
-    vec3 p;
+    vec3 position;
     vec3 normal;
 };
 

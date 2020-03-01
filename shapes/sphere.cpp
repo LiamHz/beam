@@ -1,13 +1,7 @@
 #include <memory>
 
-
 #include "shapes/sphere.h"
 #include "core/geometry.h"
-
-#include "lib/glm/glm.hpp"
-#include "lib/glm/gtc/type_ptr.hpp"
-using glm::vec3;
-
 #include "structs/hitinfo.h"
 
 bool Sphere::Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info) {
@@ -21,15 +15,15 @@ bool Sphere::Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info) {
         float temp = (-b - sqrt(b*b-a*c))/a;
         // TODO review how normal calculation works for spheres
         if (temp > 0) {
-            hit_info.p = r->point_at_parameter(temp);
-            hit_info.normal = (hit_info.p - center) / radius;
+            hit_info.position = r->point_at_parameter(temp);
+            hit_info.normal = (hit_info.position - center) / radius;
             return true;
         }
         // Check the other sign of the sqrt
         temp = (-b + sqrt(b*b-a*c))/a;
         if (temp > 0) {
-            hit_info.p = r->point_at_parameter(temp);
-            hit_info.normal = (hit_info.p - center) / radius;
+            hit_info.position = r->point_at_parameter(temp);
+            hit_info.normal = (hit_info.position - center) / radius;
             return true;
         }
     }

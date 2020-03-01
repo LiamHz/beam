@@ -13,7 +13,6 @@ void SamplerIntegrator::Render(Scene &scene) {
             // MSAA
             std::vector<std::shared_ptr<Ray> > sampleRays = sampler->GetSamples(camera, x, y);
             for (int i = 0; i < sampleRays.size(); i++) {
-                // TODO replace below with new function SamplerIntegrator::Li(std::shared_ptr<Ray> ray, )
                 color += Li(sampleRays[i], sampler, scene);
             }
 

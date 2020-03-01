@@ -1,2 +1,5 @@
-Sphere 0 0 -15   0.8
-Sphere 3 2 -14   0.4
+Shape Sphere 0   0   -5   0.6
+Shape Sphere 0.7 0.4 -4   0.2
+
+Light Point 0 0  -4   1 1 1
+Light Point 1 -1 -2   1 1 1
