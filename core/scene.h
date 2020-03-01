@@ -6,6 +6,7 @@
 #include <string>
 
 #include "core/shape.h"
+#include "core/light.h"
 #include "structs/hitinfo.h"
 
 class Scene {

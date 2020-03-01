@@ -17,12 +17,17 @@ using glm::vec3;
 #include "shapes/sphere.h"
 #include "structs/hitinfo.h"
 #include "samplers/random.h"
+#include "integrators/whitted.h"
 
 // Implement object color in scene parser
 // TODO Implement point lights
 // TODO Add BRDF class
 // TODO Implement Blinn-Phong BRDF
-// TODO Fix fisheye distortion for large camera FOV
+// TODO Add aggregate class
+// TODO Implement bounding volume hierarchy aggregate
+// TODO Implement texture mapping
+// TODO Implement texture mapping in scene parser
+// TODO Implement paralell CPU core rendering
 
 int main() {
     int width = 600;
@@ -39,7 +44,7 @@ int main() {
     Scene scene("scenes/default.scene");
     scene.ParseShapes();
 
-    SamplerIntegrator sampler_integrator(camera, randomSampler, width, height);
+    Whitted whitted_integrator(camera, randomSampler, width, height, 3);
 
-    sampler_integrator.Render(scene);
+    whitted_integrator.Render(scene);
 }

@@ -25,6 +25,7 @@ public:
                         width = _width;
                         height = _height;
                     }
+    virtual vec3 Li(std::shared_ptr<Ray> ray, std::shared_ptr<Sampler> sampler, Scene &scene) = 0;
 
     void Render(Scene &scene);
 
