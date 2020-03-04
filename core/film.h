@@ -17,11 +17,13 @@ public:
         gamma = _gamma;
         filmWidth = _filmWidth;
         filmHeight = _filmHeight;
-        framebuffer.resize(filmWidth * filmHeight);
+        filmSize = filmWidth * filmHeight;
+        framebuffer.resize(filmSize);
     }
 
     void AddSample(vec3 sample, int x, int y) {
-        framebuffer[x + y*filmWidth] = sample;
+        // Flip image horizontally and vertically to make origin bottom left
+        framebuffer[filmSize - ((filmWidth - x) + y*filmWidth)] = sample;
     }
 
     vec3 GammaCorrect(vec3 pixel, float gamma) {
@@ -48,9 +50,8 @@ public:
     }
 
     float gamma;
-    int filmWidth, filmHeight;
+    int filmWidth, filmHeight, filmSize;
     std::vector<vec3> framebuffer;
 };
 
 #endif
-

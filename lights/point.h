@@ -13,7 +13,7 @@ public:
         // TODO distance always evaluates to inf
         float distance = glm::distance(position, p.position);
 
-        // Return attenuated light
+        // TODO Return attenuated light
         // return color / (distance*distance);
         return color;
     };
