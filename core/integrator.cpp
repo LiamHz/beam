@@ -10,6 +10,8 @@ void SamplerIntegrator::Render(Scene &scene) {
         for (int x = 0; x < width; x++) {
             vec3 color = vec3(0);
 
+            // TODO Implement z-buffer
+
             // MSAA
             std::vector<std::shared_ptr<Ray> > sampleRays = sampler->GetSamples(camera, x, y);
             for (int i = 0; i < sampleRays.size(); i++) {
@@ -22,6 +24,5 @@ void SamplerIntegrator::Render(Scene &scene) {
     }
     std::cout << std::endl;
 
-    // TODO Look into SDL for image display / real time display
     camera->film->WriteImage();
 }

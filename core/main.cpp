@@ -19,32 +19,30 @@ using glm::vec3;
 #include "samplers/random.h"
 #include "integrators/whitted.h"
 
-// TODO Implement object color in scene parser
-// TODO Add material class
-// TODO Implement metal material
-// TODO Add aggregate class
-// TODO Implement bounding volume hierarchy aggregate
-// TODO Implement texture mapping
-// TODO Implement texture mapping in scene parser
-// TODO Add BRDF class
-// TODO Implement paralell CPU core rendering
+// Global performance trackers
+int nIntersections = 0;
 
 int main() {
+    // Config
     int width = 600;
     int height = 400;
-    float gamma = 2;
+    float gamma = 1.8;
+    int nSamples = 1;
+    std::string accelType = "bvh";
 
     Camera c(vec3(0, 0, 0), vec3(0, 0, -1), vec3(0, 1, 0), 20, width, height, gamma);
     std::shared_ptr<Camera> camera = std::make_shared<Camera> (c);
 
-    int nSamples = 2;
     RandomSampler s(nSamples);
     std::shared_ptr<RandomSampler> randomSampler = std::make_shared<RandomSampler> (s);
 
     Scene scene("scenes/default.scene");
     scene.ParseFile();
+    scene.CreateAggregate(accelType);
 
     Whitted whitted_integrator(camera, randomSampler, width, height, 3);
-
     whitted_integrator.Render(scene);
+
+    // Performance logging
+    std::cout << "nIntersections: " << nIntersections << std::endl;
 }

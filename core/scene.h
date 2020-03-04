@@ -3,13 +3,9 @@
 
 #include <vector>
 #include <memory>
-#include <string>
-
-#include "core/shape.h"
 #include "core/light.h"
-#include "structs/hitinfo.h"
-
 #include "lights/point.h"
+#include "core/primitive.h"
 
 class Scene {
 public:
@@ -18,11 +14,13 @@ public:
     }
     ~Scene() {}
     void ParseFile();
-    bool Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info);
+    void CreateAggregate(std::string accelType);
+    bool Intersect(std::shared_ptr<Ray> ray, HitInfo &p);
 
     std::string file_name;
-    std::vector<std::shared_ptr<Shape> > shapes;
+    std::vector<std::shared_ptr<Primitive> > shapes;
     std::vector<std::shared_ptr<Light> > lights;
+    std::shared_ptr<Aggregate> aggregate;
 
 private:
     void ParseShape(std::ifstream &file);

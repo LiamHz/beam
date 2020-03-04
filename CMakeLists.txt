@@ -12,5 +12,5 @@ execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory scenes)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scenes/default.scene ${CMAKE_CURRENT_BINARY_DIR}/scenes/ COPYONLY)
 file(COPY ${SCENE_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/scenes/)
 
-set(CMAKE_CXX_STANDARD 11)
-add_executable(main core/main.cpp core/integrator.cpp core/scene.cpp integrators/whitted.cpp shapes/sphere.cpp)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(main core/main.cpp core/geometry.cpp core/integrator.cpp core/scene.cpp integrators/whitted.cpp shapes/sphere.cpp accelerators/bvh.cpp)

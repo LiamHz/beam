@@ -6,9 +6,12 @@
 
 class Shape {
 public:
-    Shape() {}
+    Shape(vec3 _position) { position = _position; }
     virtual ~Shape() {}
     virtual bool Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info) = 0;
+    virtual Bounds GetBounds() = 0;
+
+    vec3 position;
 };
 
 #endif

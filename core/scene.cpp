@@ -1,23 +1,26 @@
-#include <vector>
-#include <memory>
+#include "core/scene.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 
-#include "core/scene.h"
-#include "core/shape.h"
-#include "shapes/sphere.h"
 #include "structs/hitinfo.h"
+#include "shapes/sphere.h"
+#include "accelerators/bvh.h"
 
 void ParseSphere(std::ifstream &file, std::vector<std::shared_ptr<Shape> > &shapes);
 
-bool Scene::Intersect(std::shared_ptr<Ray> r, HitInfo &hit_info) {
-    for (int i = 0; i < shapes.size(); i++) {
-        if (shapes[i]->Intersect(r, hit_info))
-            return true;
+bool Scene::Intersect(std::shared_ptr<Ray> ray, HitInfo &p) {
+    return aggregate->Intersect(ray, p);
+}
+
+void Scene::CreateAggregate(std::string accelType) {
+    if (accelType == "bvh") {
+        BVHAccel a(shapes);
+        auto agg = std::make_shared<BVHAccel> (a);
+        aggregate = agg;
     }
-    return false;
 }
 
 void Scene::ParseFile() {
@@ -87,5 +90,10 @@ void Scene::ParseShapeSphere(std::ifstream &file) {
     float radius = std::stof(word);
 
     Sphere s(position, radius);
-    shapes.push_back(std::make_shared<Sphere> (s));
+    auto sphere = std::make_shared<Sphere> (s);
+    // shapes.push_back(std::make_shared<Sphere> (s));
+    Material m;
+    auto material = std::make_shared<Material> (m);
+    GeometricPrimitive p(sphere, material);
+    shapes.push_back(std::make_shared<GeometricPrimitive> (p));
 }
